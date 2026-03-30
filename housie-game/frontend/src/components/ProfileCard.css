@@ -1,0 +1,134 @@
+/* ProfileCard.css */
+.profile-card {
+  background-color: rgba(15, 23, 42, 0.5); /* bg-slate-900/50 */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid #1e293b; /* border-slate-800 */
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  animation: slide-up 0.5s ease-out;
+}
+
+@media (min-width: 768px) {
+  .profile-card {
+    flex-direction: row;
+  }
+}
+
+.profile-left {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.avatar-wrapper {
+  position: relative;
+  cursor: pointer;
+}
+
+.avatar-glow {
+  position: absolute;
+  inset: -2px;
+  background: linear-gradient(to right, #6366f1, #a855f7);
+  border-radius: 1rem;
+  filter: blur(8px);
+  opacity: 0.3;
+  transition: opacity 0.5s;
+}
+
+.avatar-wrapper:hover .avatar-glow {
+  opacity: 0.6;
+}
+
+.avatar-img {
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1rem;
+  border: 1px solid #334155;
+  object-fit: cover;
+}
+
+.avatar-placeholder {
+  position: relative;
+  width: 4rem;
+  height: 4rem;
+  border-radius: 1rem;
+  background-color: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #334155;
+  color: #64748b;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .profile-info {
+    text-align: left;
+  }
+}
+
+.profile-name {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: white;
+  margin: 0;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.coin-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  gap: 0.5rem;
+  padding: 0.25rem 0.75rem;
+  background-color: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: 9999px;
+  color: #f59e0b;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  .coin-badge {
+    justify-content: flex-start;
+  }
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 1rem;
+  color: #e2e8f0;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.logout-btn:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.2);
+}
