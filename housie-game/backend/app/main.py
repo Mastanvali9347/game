@@ -38,7 +38,7 @@ sio = socketio.AsyncServer(
 room_socket.register_handlers(sio)
 
 # ASGI app
-socket_app = socketio.ASGIApp(
+app = socketio.ASGIApp(
     sio,
     other_asgi_app=app,
     socketio_path="socket.io"
@@ -57,7 +57,7 @@ async def disconnect(sid):
 
 if __name__ == "__main__":
     uvicorn.run(
-        "main:socket_app",
+        "app.main:app",
         host="0.0.0.0",
         port=8000,
         reload=True
