@@ -7,13 +7,14 @@ let socket = null;
 export const connectSocket = () => {
   if (!socket) {
     socket = io(SOCKET_URL, {
-      path: "/socket.io",
+      path: "/socket.io/",
+      secure: true,
       autoConnect: true,
       reconnection: true,
       reconnectionAttempts: 10,
       reconnectionDelay: 1000,
       timeout: 20000,
-      transports: ["websocket", "polling"]
+      transports: ["websocket"] // Force websocket to bypass Render long-polling CORS/affinity issues
     });
 
     socket.on("connect", () => {
