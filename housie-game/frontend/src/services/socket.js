@@ -7,7 +7,7 @@ let socket = null;
 export const connectSocket = () => {
   if (!socket) {
     socket = io(SOCKET_URL, {
-      path: "/socket.io/",
+      path: "/socket.io",
       secure: true,
       autoConnect: true,
       reconnection: true,
