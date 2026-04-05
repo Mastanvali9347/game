@@ -5,43 +5,35 @@
 @tailwind utilities;
 
 /* Base Theme & Performance Tokens */
-:root {
-  --font-main: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
-  --bg-primary: #000000;
-  --bg-secondary: #0a0a0a;
-  --accent-primary: #00f2ff; /* Neon Cyan */
-  --accent-secondary: #bc13fe; /* Neon Purple */
-  --accent-neon: #39ff14; /* Neon Lime */
-  --text-primary: #f8fafc;
-  --text-secondary: #94a3b8;
-  --glass-bg: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.15);
-  --shadow-premium: 0 0 20px rgba(0, 242, 255, 0.2), 0 0 40px rgba(0, 0, 0, 0.8);
-  
-  font-family: var(--font-main);
-  line-height: 1.5;
-  font-weight: 400;
-  color-scheme: dark;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 [data-theme='light'] {
   --bg-primary: #f8fafc;
   --bg-secondary: #ffffff;
-  --accent-primary: #1e3a8a; /* Navy Blue 800 */
-  --accent-secondary: #3b82f6; /* Blue 500 */
+  --accent-primary: #4f46e5;
+  --accent-secondary: #818cf8;
   --accent-neon: #10b981;
   --text-primary: #0f172a;
   --text-secondary: #475569;
-  --glass-bg: rgba(255, 255, 255, 0.9);
-  --glass-border: rgba(30, 58, 138, 0.15);
-  --shadow-premium: 0 10px 40px -10px rgba(30, 58, 138, 0.1), 0 5px 15px -5px rgba(0, 0, 0, 0.05);
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --glass-border: rgba(99, 102, 241, 0.15);
+  --shadow-premium: 0 10px 40px -10px rgba(99, 102, 241, 0.1), 0 5px 15px -5px rgba(0, 0, 0, 0.05);
+  --pattern-opacity: 0.03;
   color-scheme: light;
+}
+
+:root {
+  --font-main: 'Outfit', 'Inter', system-ui, sans-serif;
+  --bg-primary: #020617;
+  --bg-secondary: #0f172a;
+  --accent-primary: #6366f1;
+  --accent-secondary: #8b5cf6;
+  --accent-neon: #10b981;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --glass-bg: rgba(15, 23, 42, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --shadow-premium: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
+  --pattern-opacity: 0.15;
+  --pattern-url: url('/housie_background_pattern_1775368230568.png');
 }
 
 @keyframes light-box-breath {
@@ -63,13 +55,27 @@
 
 body {
   min-height: 100vh;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   overflow-x: hidden;
-  background: radial-gradient(circle at top right, #110022, #000000 70%);
-  background-attachment: fixed;
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: var(--pattern-url);
+  background-size: cover;
+  background-position: center;
+  opacity: var(--pattern-opacity);
+  z-index: -1;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
 }
 
 [data-theme='light'] body {
-  background: radial-gradient(circle at top right, #e0e7ff, #f8fafc 60%);
+  background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
 }
 
 #root {
@@ -97,6 +103,29 @@ body {
 @keyframes pulse-glow {
   0%, 100% { box-shadow: 0 0 15px rgba(99, 102, 241, 0.2); }
   50% { box-shadow: 0 0 30px rgba(99, 102, 241, 0.5); }
+}
+
+@keyframes ballBounce {
+  0%, 100% { transform: translateY(0) scaleX(1); }
+  45% { transform: translateY(-40px) scaleX(0.9); }
+  50% { transform: translateY(-45px) scaleX(0.85); }
+  55% { transform: translateY(-40px) scaleX(0.9); }
+  95% { transform: translateY(0) scaleX(1.1); }
+}
+
+.loader-ball {
+  width: 50px;
+  height: 50px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  position: relative;
+  animation: ballBounce 1.2s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 .animate-fade {

@@ -6,65 +6,25 @@
   justify-content: center;
   min-height: 100vh;
   padding: 1.5rem;
-  background: #020617;
+  background: var(--bg-primary);
   overflow: hidden;
-  color: #f8fafc;
-  font-family: 'Outfit', 'Inter', sans-serif;
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  transition: background-color 0.5s ease;
 }
 
-/* --- GALAXY BACKGROUND (Best Animation) --- */
-.stars, .twinkling, .nebulas {
+.login-background-overlay {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  width: 100%; height: 100%;
-  display: block;
-}
-
-.stars {
-  background: #000 url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/123163/stars.png) repeat top center;
-  z-index: 0;
-  opacity: 0.5;
-}
-
-.twinkling {
-  background: transparent url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/123163/twinkling.png) repeat top center;
-  z-index: 1;
-  animation: move-twink-back 200s linear infinite;
-  opacity: 0.3;
-}
-
-.nebula-1, .nebula-2 {
-  position: absolute;
-  width: 800px;
-  height: 800px;
-  border-radius: 50%;
-  filter: blur(120px);
-  z-index: 2;
+  background: radial-gradient(circle at 70% 30%, var(--accent-secondary) 0%, transparent 40%),
+              radial-gradient(circle at 20% 80%, var(--accent-primary) 0%, transparent 40%);
   opacity: 0.15;
+  filter: blur(100px);
+  z-index: 1;
 }
 
-.nebula-1 {
-  background: radial-gradient(circle, #6366f1 0%, transparent 70%);
-  top: -200px;
-  left: -200px;
-  animation: drift 30s ease-in-out infinite;
-}
-
-.nebula-2 {
-  background: radial-gradient(circle, #ec4899 0%, transparent 70%);
-  bottom: -200px;
-  right: -200px;
-  animation: drift 25s ease-in-out reverse infinite;
-}
-
-@keyframes move-twink-back {
-  from { background-position: 0 0; }
-  to { background-position: -10000px 5000px; }
-}
-
-@keyframes drift {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(100px, 50px) scale(1.1); }
+[data-theme='light'] .login-background-overlay {
+  opacity: 0.08;
 }
 
 /* --- WRAPPER & LAYOUT --- */
@@ -106,19 +66,20 @@
 }
 
 .logo-icon {
-  color: #818cf8;
+  color: var(--accent-primary);
 }
 
 .game-title {
-  font-size: 4rem;
-  font-weight: 950;
-  letter-spacing: 0.15em;
-  background: linear-gradient(to right, #ffffff, #818cf8, #a78bfa);
+  font-size: 4.5rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-primary) 100%);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   margin: 0;
-  line-height: 1.1;
+  line-height: 1;
+  filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.3));
 }
 
 .game-status-pill {
@@ -156,15 +117,17 @@
 
 /* --- AUTH CARD --- */
 .auth-card-main {
-  background: rgba(15, 23, 42, 0.7);
+  background: var(--glass-bg);
   backdrop-filter: blur(25px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid var(--glass-border);
   border-radius: 2.5rem;
   padding: 2.5rem;
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--shadow-premium);
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  z-index: 10;
 }
 
 .animate-box-entry {
@@ -215,18 +178,18 @@
 .input-with-icon input {
   width: 100%;
   padding: 1.125rem 1.25rem 1.125rem 3.5rem;
-  background: rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--bg-secondary);
+  border: 1px solid var(--glass-border);
   border-radius: 1.25rem;
-  color: white;
+  color: var(--text-primary);
   font-size: 1rem;
   transition: all 0.3s ease;
 }
 
 .input-with-icon input:focus {
   outline: none;
-  background: rgba(0, 0, 0, 0.4);
-  border-color: #6366f1;
+  background: var(--bg-secondary);
+  border-color: var(--accent-primary);
   box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.15);
 }
 
@@ -241,7 +204,7 @@
   padding: 1.25rem;
   border-radius: 1.25rem;
   border: none;
-  background: #6366f1;
+  background: var(--accent-primary);
   color: white;
   font-weight: 700;
   font-size: 1rem;
@@ -255,7 +218,7 @@
 }
 
 .btn-auth-primary:hover:not(:disabled) {
-  background: #4f46e5;
+  background: var(--accent-secondary);
   transform: translateY(-2px);
   box-shadow: 0 15px 30px -5px rgba(99, 102, 241, 0.5);
 }
@@ -278,16 +241,16 @@
 
 .sep-line {
   height: 1px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--glass-border);
 }
 
 .btn-guest-enhanced {
   width: 100%;
   padding: 1rem;
   border-radius: 1.25rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.03);
-  color: #94a3b8;
+  border: 1px solid var(--glass-border);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
   font-weight: 700;
   display: flex;
   align-items: center;
@@ -298,9 +261,9 @@
 }
 
 .btn-guest-enhanced:hover:not(:disabled) {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
-  color: white;
+  background: var(--glass-bg);
+  border-color: var(--accent-primary);
+  color: var(--text-primary);
 }
 
 .play-icon-bg {

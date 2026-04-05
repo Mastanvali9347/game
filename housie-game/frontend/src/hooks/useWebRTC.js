@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
-import socket from '../services/socket';
+import { getSocket } from '../services/socket';
+
 
 const useWebRTC = (roomId, userId) => {
+  const socket = getSocket();
   const [micEnabled, setMicEnabled] = useState(false);
   const [streams, setStreams] = useState({});
   const pcs = useRef({});
@@ -17,7 +19,7 @@ const useWebRTC = (roomId, userId) => {
     const pc = new RTCPeerConnection(configuration);
 
     pc.onicecandidate = (event) => {
-      if (event.candidate) {
+      if (event.candidate && socket) {
         socket.emit('voice_ice_candidate', {
           room_id: roomId,
           target_id: targetUserId,
@@ -52,13 +54,15 @@ const useWebRTC = (roomId, userId) => {
     const offer = await pc.createOffer();
     await pc.setLocalDescription(offer);
 
-    socket.emit('voice_offer', {
-      room_id: roomId,
-      target_id: targetId,
-      offer,
-      sender_id: userId
-    });
-  }, [createPeerConnection, roomId, userId]);
+    if (socket) {
+      socket.emit('voice_offer', {
+        room_id: roomId,
+        target_id: targetId,
+        offer,
+        sender_id: userId
+      });
+    }
+  }, [createPeerConnection, roomId, userId, socket]);
 
   const toggleMic = async () => {
     try {
@@ -140,18 +144,19 @@ const useWebRTC = (roomId, userId) => {
     });
 
     socket.on('player_left', (data) => {
-      const pc = pcs.current[data.user_id];
+      const pc = pcs.current[data.id];
       if (pc) {
         pc.close();
-        delete pcs.current[data.user_id];
+        delete pcs.current[data.id];
 
         setStreams(prev => {
           const copy = { ...prev };
-          delete copy[data.user_id];
+          delete copy[data.id];
           return copy;
         });
       }
     });
+
 
     return () => {
       socket.off('voice_offer');

@@ -50,15 +50,8 @@ const LoginPage = () => {
   return (
     <div className="login-page">
       
-      {/* Dynamic Background */}
-      <div className="galaxy-bg">
-        <div className="stars"></div>
-        <div className="twinkling"></div>
-        <div className="nebulas">
-          <div className="nebula-1"></div>
-          <div className="nebula-2"></div>
-        </div>
-      </div>
+      {/* Theme-aware Background Pattern is handled by index.css body::before */}
+      <div className="login-background-overlay"></div>
 
       <div className="login-wrapper animate-page-entry">
         
@@ -117,7 +110,7 @@ const LoginPage = () => {
 
             <button type="submit" disabled={loading} className="btn-auth-primary">
               {loading ? (
-                <Loader2 className="animate-spin" />
+                <div className="loader-ball">H</div>
               ) : (
                 <>
                   <span>Login</span>
@@ -139,7 +132,7 @@ const LoginPage = () => {
             className="btn-guest-enhanced"
           >
             {isGuestJoining ? (
-              <Loader2 className="animate-spin" />
+              <div className="loader-ball">?</div>
             ) : (
               <>
                 <div className="play-icon-bg">

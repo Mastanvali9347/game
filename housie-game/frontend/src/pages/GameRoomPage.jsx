@@ -20,7 +20,7 @@ const GameRoomPage = () => {
   const navigate = useNavigate();
   const { user, updateCoins, signOut } = useAuthStore();
 
-  const { micEnabled, toggleMic } = useWebRTC(roomId, user?.id);
+  const { micEnabled, toggleMic, remoteStreams } = useWebRTC(roomId, user?.id);
 
   const [gameStatus, setGameStatus] = useState('waiting');
   const [hostId, setHostId] = useState(null);
@@ -359,6 +359,15 @@ const GameRoomPage = () => {
             currentUserName={user?.name}
             setMessages={setMessages}
           />
+
+          {/* Remote Audio Streams */}
+          {Object.entries(remoteStreams).map(([uid, stream]) => (
+            <audio 
+              key={uid} 
+              autoPlay 
+              ref={el => { if (el && el.srcObject !== stream) el.srcObject = stream; }}
+            />
+          ))}
         </div>
 
       </main>

@@ -1,7 +1,7 @@
 /* PlayerList.css */
 .player-list-container {
-  background-color: #0f172a; /* bg-slate-900 */
-  border: 1px solid #1e293b; /* border-slate-800 */
+  background-color: var(--bg-secondary);
+  border: 1px solid var(--glass-border);
   border-radius: 1.5rem;
   padding: 1.5rem;
   height: 100%;
@@ -19,7 +19,7 @@
 
 .player-title {
   font-weight: 700;
-  color: white;
+  color: var(--text-primary);
   letter-spacing: -0.025em;
   margin: 0;
 }
@@ -28,10 +28,10 @@
   margin-left: auto;
   font-size: 0.75rem;
   font-weight: 700;
-  background-color: #1e293b;
+  background-color: var(--glass-bg);
   padding: 0.125rem 0.5rem;
   border-radius: 9999px;
-  color: #94a3b8;
+  color: var(--text-secondary);
 }
 
 .player-scroll-area {
@@ -49,13 +49,14 @@
   gap: 0.75rem;
   padding: 0.75rem;
   border-radius: 1rem;
-  background-color: rgba(2, 6, 23, 0.5); /* bg-slate-950/50 */
+  background-color: var(--glass-bg);
   transition: all 0.2s ease;
+  border: 1px solid transparent;
 }
 
 .player-item.is-me {
-  background-color: rgba(79, 70, 229, 0.1);
-  border: 1px solid rgba(79, 70, 229, 0.2);
+  background-color: var(--glass-bg);
+  border: 1px solid var(--accent-primary);
 }
 
 .avatar-container {
@@ -66,16 +67,12 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 0.75rem;
-  background-color: #1e293b;
+  background-color: var(--accent-primary);
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 700;
-  color: #64748b;
-}
-
-.avatar.is-me {
-  color: #818cf8;
+  color: white;
 }
 
 .online-indicator {
@@ -84,7 +81,7 @@
   right: -0.25rem;
   width: 0.875rem;
   height: 0.875rem;
-  background-color: #0f172a;
+  background-color: var(--bg-secondary);
   border-radius: 9999px;
   display: flex;
   align-items: center;
@@ -94,15 +91,8 @@
 .online-dot {
   width: 0.5rem;
   height: 0.5rem;
-  background-color: #10b981; /* emerald-500 */
+  background-color: var(--accent-neon);
   border-radius: 9999px;
-  animation: pulse-online 2s infinite;
-}
-
-@keyframes pulse-online {
-  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
-  70% { transform: scale(1.1); box-shadow: 0 0 0 5px rgba(16, 185, 129, 0); }
-  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
 }
 
 .player-info {
@@ -116,24 +106,14 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #94a3b8;
+  color: var(--text-primary);
   margin: 0;
-}
-
-.player-name.is-me {
-  color: white;
 }
 
 .player-status {
   font-size: 10px;
-  color: #475569;
+  color: var(--text-secondary);
   text-transform: uppercase;
   font-weight: 700;
   margin: 0;
-}
-
-@media (max-width: 640px) {
-  .player-list-container {
-    padding: 1rem;
-  }
 }
