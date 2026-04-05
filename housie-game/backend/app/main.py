@@ -41,12 +41,13 @@ sio = socketio.AsyncServer(
 # Register all socket handlers
 room_socket.register_handlers(sio)
 
-# ASGI app
-socket_app = socketio.ASGIApp(
-    sio,
-    other_asgi_app=app,
-    socketio_path="socket.io"
-)
+# Socket.IO Mount
+sio_app = socketio.ASGIApp(sio, socketio_path="")
+app.mount("/socket.io", sio_app)
+
+# Combined ASGI app for uvicorn
+socket_app = app
+
 
 
 @sio.event
