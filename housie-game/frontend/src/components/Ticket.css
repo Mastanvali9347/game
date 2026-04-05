@@ -53,10 +53,11 @@
 }
 
 .ticket-cell.empty {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--glass-bg);
   cursor: default;
   border-color: transparent;
 }
+
 
 .ticket-cell.available {
   background-color: var(--glass-bg);

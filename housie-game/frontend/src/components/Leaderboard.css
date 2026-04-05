@@ -1,11 +1,11 @@
 /* Leaderboard.css */
 :root {
-  --lb-bg: #0f172a;
-  --lb-border: #1e293b;
-  --lb-item-bg: rgba(2, 6, 23, 0.5);
-  --lb-item-border: rgba(30, 41, 59, 0.5);
+  --lb-bg: var(--bg-secondary);
+  --lb-border: var(--glass-border);
+  --lb-item-bg: var(--glass-bg);
+  --lb-item-border: var(--glass-border);
   --lb-accent-gold: #f59e0b;
-  --lb-accent-silver: #cbd5e1;
+  --lb-accent-silver: #94a3b8;
   --lb-accent-bronze: #b45309;
 }
 
@@ -14,7 +14,7 @@
   border: 1px solid var(--lb-border);
   border-radius: 1.5rem;
   padding: 1.5rem;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+  box-shadow: var(--shadow-premium);
   animation: slide-right 0.5s ease-out;
 }
 
@@ -33,7 +33,7 @@
 
 .leaderboard-title {
   font-weight: 700;
-  color: white;
+  color: var(--text-primary);
   letter-spacing: -0.025em;
   margin: 0;
 }
@@ -56,8 +56,8 @@
 }
 
 .prize-item:hover {
-  border-color: rgba(99, 102, 241, 0.3);
-  background-color: rgba(99, 102, 241, 0.05);
+  border-color: var(--accent-primary);
+  background-color: var(--glass-bg);
   transform: scale(1.02);
 }
 
@@ -70,7 +70,7 @@
 .prize-icon-box {
   padding: 0.625rem;
   border-radius: 0.75rem;
-  background-color: var(--lb-bg);
+  background-color: var(--bg-primary);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -84,7 +84,7 @@
 .prize-title {
   font-size: 0.875rem;
   font-weight: 700;
-  color: #e2e8f0;
+  color: var(--text-primary);
   margin: 0;
 }
 
@@ -92,7 +92,7 @@
   display: flex;
   align-items: center;
   gap: 0.375rem;
-  color: rgba(245, 158, 11, 0.8);
+  color: var(--lb-accent-gold);
   font-size: 10px;
   font-weight: 900;
   margin-top: 0.125rem;
@@ -107,7 +107,7 @@
 .winner-name {
   font-size: 0.75rem;
   font-weight: 700;
-  color: #34d399; /* emerald-400 */
+  color: var(--accent-neon);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -117,28 +117,8 @@
 .waiting-text {
   font-size: 10px;
   font-weight: 700;
-  color: #475569; /* slate-600 */
+  color: var(--text-secondary);
   text-transform: uppercase;
   font-style: italic;
   margin: 0;
-}
-
-/* Colors from props or index.css */
-.text-amber-500 { color: var(--lb-accent-gold); }
-.text-slate-300 { color: var(--lb-accent-silver); }
-.text-amber-700 { color: var(--lb-accent-bronze); }
-
-/* Mobile Optimizations */
-@media (max-width: 640px) {
-  .leaderboard-container {
-    padding: 1rem;
-  }
-  
-  .prize-item {
-    padding: 0.75rem;
-  }
-  
-  .prize-icon-box {
-    padding: 0.5rem;
-  }
 }

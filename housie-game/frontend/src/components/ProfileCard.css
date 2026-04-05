@@ -1,9 +1,9 @@
 /* ProfileCard.css */
 .profile-card {
-  background-color: rgba(15, 23, 42, 0.5); /* bg-slate-900/50 */
+  background-color: var(--bg-secondary);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid #1e293b; /* border-slate-800 */
+  border: 1px solid var(--glass-border);
   border-radius: 1.5rem;
   padding: 1.5rem;
   display: flex;
@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 1.5rem;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-premium);
   animation: slide-up 0.5s ease-out;
 }
 
@@ -35,7 +35,7 @@
 .avatar-glow {
   position: absolute;
   inset: -2px;
-  background: linear-gradient(to right, #6366f1, #a855f7);
+  background: linear-gradient(to right, var(--accent-primary), var(--accent-secondary));
   border-radius: 1rem;
   filter: blur(8px);
   opacity: 0.3;
@@ -51,7 +51,7 @@
   width: 4rem;
   height: 4rem;
   border-radius: 1rem;
-  border: 1px solid #334155;
+  border: 1px solid var(--glass-border);
   object-fit: cover;
 }
 
@@ -60,36 +60,23 @@
   width: 4rem;
   height: 4rem;
   border-radius: 1rem;
-  background-color: #1e293b;
+  background-color: var(--glass-bg);
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #334155;
-  color: #64748b;
-}
-
-.profile-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  text-align: center;
-}
-
-@media (min-width: 768px) {
-  .profile-info {
-    text-align: left;
-  }
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
 }
 
 .profile-name {
   font-size: 1.5rem;
   font-weight: 800;
-  color: white;
+  color: var(--text-primary);
   margin: 0;
   max-width: 200px;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .coin-badge {
@@ -99,18 +86,12 @@
   width: fit-content;
   gap: 0.5rem;
   padding: 0.25rem 0.75rem;
-  background-color: rgba(245, 158, 11, 0.1);
-  border: 1px solid rgba(245, 158, 11, 0.2);
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   border-radius: 9999px;
-  color: #f59e0b;
+  color: var(--accent-secondary);
   font-weight: 700;
   font-size: 0.875rem;
-}
-
-@media (min-width: 768px) {
-  .coin-badge {
-    justify-content: flex-start;
-  }
 }
 
 .logout-btn {
@@ -118,17 +99,17 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
-  background-color: #1e293b;
-  border: 1px solid #334155;
+  background-color: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   border-radius: 1rem;
-  color: #e2e8f0;
+  color: #ef4444; /* Red for logout consistently */
   font-weight: 700;
   cursor: pointer;
   transition: all 0.3s;
 }
 
 .logout-btn:hover {
-  background-color: rgba(239, 68, 68, 0.1);
-  color: #f87171;
-  border-color: rgba(239, 68, 68, 0.2);
+  background-color: #ef4444;
+  color: white;
+  border-color: #ef4444;
 }
