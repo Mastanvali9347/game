@@ -6,19 +6,20 @@
 
 /* Base Theme & Performance Tokens */
 [data-theme='light'] {
-  --bg-primary: #f8fafc;
+  --bg-primary: #f1f5f9;
   --bg-secondary: #ffffff;
   --accent-primary: #4f46e5;
-  --accent-secondary: #818cf8;
-  --accent-neon: #10b981;
+  --accent-secondary: #6366f1;
+  --accent-neon: #059669;
   --text-primary: #0f172a;
   --text-secondary: #475569;
-  --glass-bg: rgba(255, 255, 255, 0.8);
-  --glass-border: rgba(99, 102, 241, 0.15);
-  --shadow-premium: 0 10px 40px -10px rgba(99, 102, 241, 0.1), 0 5px 15px -5px rgba(0, 0, 0, 0.05);
-  --pattern-opacity: 0.03;
+  --glass-bg: rgba(255, 255, 255, 0.9);
+  --glass-border: rgba(79, 70, 229, 0.1);
+  --shadow-premium: 0 10px 40px -10px rgba(99, 102, 241, 0.15);
+  --pattern-opacity: 0.04;
   color-scheme: light;
 }
+
 
 :root {
   --font-main: 'Outfit', 'Inter', system-ui, sans-serif;
@@ -74,6 +75,19 @@ body::before {
   transition: opacity 0.5s ease;
 }
 
+.game-title {
+  font-size: 4.5rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  margin: 0;
+  line-height: 1;
+  filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.1));
+}
+
 [data-theme='light'] body {
   background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
 }
@@ -126,6 +140,16 @@ body::before {
   font-weight: 900;
   color: white;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.error-title {
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: #dc2626;
+}
+
+[data-theme='dark'] .error-title {
+  color: #fca5a5;
 }
 
 .animate-fade {
