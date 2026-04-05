@@ -3,7 +3,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Sun, Moon, Mic, MicOff, LogOut, User as UserIcon, Users } from 'lucide-react';
 import useThemeStore from '../context/useThemeStore';
 import useAuthStore from '../context/useAuthStore';
+import { getSocket } from '../services/socket';
 import './Header.css';
+
 
 const Header = () => {
   const navigate = useNavigate();
@@ -12,8 +14,19 @@ const Header = () => {
   const { user, signOut } = useAuthStore();
   const [isMicMuted, setIsMicMuted] = useState(true);
 
+  const [isConnected, setIsConnected] = useState(false);
+
   useEffect(() => {
     initTheme();
+    
+    // Check socket connection status periodically
+    const checkSocket = () => {
+      const s = getSocket();
+      setIsConnected(s?.connected || false);
+    };
+
+    const interval = setInterval(checkSocket, 2000);
+    return () => clearInterval(interval);
   }, []);
 
   if (location.pathname.startsWith('/game/')) return null;
@@ -39,7 +52,9 @@ const Header = () => {
         <h1 className="logo-text">
           Housie Multiplayer
         </h1>
+        <div className={`connection-status-dot ${isConnected ? 'online' : 'offline'}`} title={isConnected ? "Server Connected" : "Connecting..."}></div>
       </div>
+
 
       <nav className="nav-menu">
         <span onClick={() => navigate('/')} className={getLinkClass('/')}>

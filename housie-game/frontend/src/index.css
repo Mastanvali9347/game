@@ -26,15 +26,15 @@
   --bg-primary: #020617;
   --bg-secondary: #0f172a;
   --accent-primary: #6366f1;
-  --accent-secondary: #8b5cf6;
+  --accent-secondary: #4f46e5;
   --accent-neon: #10b981;
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
-  --glass-bg: rgba(15, 23, 42, 0.6);
+  --glass-bg: rgba(15, 23, 42, 0.7);
   --glass-border: rgba(255, 255, 255, 0.08);
-  --shadow-premium: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
-  --pattern-opacity: 0.15;
-  --pattern-url: url('/housie_background_pattern_1775368230568.png');
+  --shadow-premium: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+  --pattern-url: url('/housie-pattern.png');
+  --pattern-opacity: 0.08;
 }
 
 @keyframes light-box-breath {
@@ -72,7 +72,6 @@ body::before {
   opacity: var(--pattern-opacity);
   z-index: -1;
   pointer-events: none;
-  transition: opacity 0.5s ease;
 }
 
 .game-title {

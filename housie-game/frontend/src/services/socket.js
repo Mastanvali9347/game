@@ -20,15 +20,27 @@ export const connectSocket = () => {
     });
 
     socket.on("connect", () => {
-      console.log("Socket connected:", socket.id);
+      console.log("🟢 SOCKET CONNECTED:", socket.id);
     });
 
     socket.on("connect_error", (err) => {
-      console.error("Socket connect error:", err.message);
+      console.error("🔴 SOCKET CONNECT ERROR:", err.message);
     });
 
     socket.on("disconnect", (reason) => {
-      console.warn("Socket disconnected:", reason);
+      console.warn("🟡 SOCKET DISCONNECTED:", reason);
+    });
+
+    socket.on("join_room_socket", (data) => {
+      console.log("📥 RECEIVED join_room_socket:", data);
+    });
+
+    socket.on("room_state", (data) => {
+      console.log("📥 RECEIVED room_state:", data);
+    });
+
+    socket.on("players_list", (data) => {
+      console.log("📥 RECEIVED players_list:", data);
     });
   }
 

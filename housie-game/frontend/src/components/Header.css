@@ -20,8 +20,11 @@
 .logo-container {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem;
   cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  transition: all 0.3s;
 }
 
 .logo-icon {
@@ -173,6 +176,30 @@
 .mic-toggle.muted:hover {
   background: #ef4444;
   color: white;
+}
+
+.connection-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  transition: all 0.4s ease;
+  flex-shrink: 0;
+}
+
+.connection-status-dot.online {
+  background-color: var(--accent-neon);
+  box-shadow: 0 0 10px var(--accent-neon);
+  animation: pulse-status 2s infinite;
+}
+
+.connection-status-dot.offline {
+  background-color: #64748b;
+  opacity: 0.5;
+}
+
+@keyframes pulse-status {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.6; }
 }
 
 @media (max-width: 767px) {

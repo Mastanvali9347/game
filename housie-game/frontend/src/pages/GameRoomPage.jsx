@@ -22,9 +22,19 @@ const GameRoomPage = () => {
   const navigate = useNavigate();
   const { user, updateCoins, signOut } = useAuthStore();
   const { theme, toggleTheme, initTheme } = useThemeStore();
-  
+  const [copyFeedback, setCopyFeedback] = useState(false);
+  const [isConnected, setIsConnected] = useState(false);
+
   useEffect(() => {
     initTheme();
+    
+    const checkSocket = () => {
+      const s = getSocket();
+      setIsConnected(s?.connected || false);
+    };
+
+    const interval = setInterval(checkSocket, 2000);
+    return () => clearInterval(interval);
   }, [initTheme]);
 
 
@@ -40,7 +50,6 @@ const GameRoomPage = () => {
   const [winners, setWinners] = useState([]);
   const [messages, setMessages] = useState([]);
   const [claimedBy, setClaimedBy] = useState({});
-  const [copyFeedback, setCopyFeedback] = useState(false);
 
   const fetchTicket = useCallback(async () => {
     if (!user?.id) return;
@@ -62,6 +71,7 @@ const GameRoomPage = () => {
     // REGISTER LISTENERS FIRST
     socket.off('room_state');
     socket.on('room_state', (state) => {
+      console.log("📦 ROOM STATE RECEIVED:", state);
       if (!state) return;
 
       setGameStatus(state.status || 'waiting');
@@ -147,13 +157,21 @@ const GameRoomPage = () => {
       setGameStatus('ended');
     });
 
-    // EMIT JOIN AFTER LISTENERS
-    socket.emit('join_room_socket', {
-      room_id: roomId,
-      user_id: user.id,
-      username: user.name,
-      coins: user.coins
-    });
+    const emitJoin = () => {
+      console.log("📤 EMITTING join_room_socket:", { roomId, userId: user.id });
+      socket.emit('join_room_socket', {
+        room_id: roomId,
+        user_id: user.id,
+        username: user.name,
+        coins: user.coins
+      });
+    };
+
+    if (socket.connected) {
+      emitJoin();
+    } else {
+      socket.once('connect', emitJoin);
+    }
 
     return () => {
       socket.off('room_state');

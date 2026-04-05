@@ -14,6 +14,10 @@ from app.sockets import room_socket
 app = FastAPI()
 
 # Routers
+@app.get("/api/health")
+async def health_check():
+    return {"status": "ok", "websocket": "Socket.IO engine active"}
+
 app.include_router(auth_router, prefix="/api/auth", tags=["Auth"])
 app.include_router(rooms_router, prefix="/api/rooms", tags=["Rooms"])
 
