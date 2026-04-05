@@ -51,7 +51,9 @@ socket_app = socketio.ASGIApp(
 
 @sio.event
 async def connect(sid, environ):
-    print("Connected:", sid)
+    origin = environ.get('HTTP_ORIGIN')
+    print(f"Connected: {sid} | Origin: {origin}")
+
 
 
 @sio.event

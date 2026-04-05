@@ -16,8 +16,9 @@ export const connectSocket = () => {
       reconnectionAttempts: 10,
       reconnectionDelay: 1000,
       timeout: 20000,
-      transports: ["websocket", "polling"]
+      transports: ["polling", "websocket"]
     });
+
 
     socket.on("connect", () => {
       console.log("🟢 SOCKET CONNECTED:", socket.id);
