@@ -197,8 +197,20 @@
   color: var(--text-secondary);
 }
 
+/* RESPONSIVENESS (User Defined Breakpoints) */
+@media (max-width: 1440px) {
+  .lobby-container { max-width: 950px; }
+}
+
 @media (max-width: 768px) {
-  .lobby-actions {
-    grid-template-columns: 1fr;
-  }
+  .lobby-container { padding: 1.5rem 1rem 4rem; }
+  .lobby-actions { grid-template-columns: 1fr; gap: 1.5rem; }
+  .action-card { padding: 2.5rem 1.5rem; }
+}
+
+@media (max-width: 425px) {
+  .lobby-container { gap: 2rem; }
+  .rooms-title { font-size: 1.4rem; }
+  .rooms-grid { grid-template-columns: 1fr; }
+  .no-rooms { padding: 2rem 1rem; }
 }

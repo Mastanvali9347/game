@@ -177,20 +177,26 @@
   box-shadow: 0 6px 15px rgba(245, 158, 11, 0.3);
 }
 
-/* MOBILE / TABLET RESPONSIVENESS */
-@media (max-width: 1200px) {
+/* --- RESPONSIVENESS (User Defined Breakpoints) --- */
+
+/* Laptop View (1024px to 1440px) */
+@media (max-width: 1440px) {
   .game-main {
-    grid-template-columns: 1fr 350px;
+    grid-template-columns: 320px 1fr 350px;
+    gap: 0.75rem;
+    padding: 0.75rem;
   }
 }
 
-@media (max-width: 992px) {
+/* Tablet View (768px) */
+@media (max-width: 768px) {
   .game-main {
     display: flex;
     flex-direction: column;
     height: auto;
     overflow-y: auto;
     padding: 1rem;
+    gap: 1.5rem;
   }
 
   .side-panel, .board-container, .social-panel {
@@ -200,16 +206,45 @@
   }
 
   .social-panel {
-    min-height: 600px; /* Allow enough space for both when stacked */
+    min-height: 700px;
   }
 
   .social-panel > div:first-child {
+    height: 350px;
     flex: none;
-    height: 300px;
   }
 
   .social-panel > div:last-child {
+    height: 350px;
     flex: none;
-    height: 400px;
+  }
+}
+
+/* Mobile View (320px to 425px) */
+@media (max-width: 425px) {
+  .game-header {
+    padding: 0.75rem;
+  }
+
+  .header-left .logo-text, .header-right .logout-text {
+    display: none; /* Icon only on mobile */
+  }
+
+  .game-main {
+    padding: 0.5rem;
+    gap: 1rem;
+  }
+
+  .claim-grid {
+    grid-template-columns: 1fr; /* Stack claims on small mobile */
+  }
+
+  .board-container {
+    padding: 1rem;
+    border-radius: 1.5rem;
+  }
+
+  .social-panel {
+    min-height: 800px;
   }
 }

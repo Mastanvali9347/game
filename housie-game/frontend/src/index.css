@@ -50,14 +50,15 @@ body::before {
   pointer-events: none;
 }
 
-/* Responsive Pattern */
-@media (max-width: 1024px) { body::before { background-size: 200px; } }
-@media (max-width: 480px) { 
+/* Responsive Pattern based on user-defined breakpoints */
+@media (max-width: 1440px) { body::before { background-size: 250px; } } /* Laptop View Range */
+@media (max-width: 768px) { body::before { background-size: 200px; } }  /* Tablet View */
+@media (max-width: 425px) { 
   body::before { 
     background-size: 150px; 
     opacity: calc(var(--pattern-opacity) * 1.5);
   } 
-}
+} /* Mobile View Range */
 
 .game-title {
   font-size: 4.5rem;
