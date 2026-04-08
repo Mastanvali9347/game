@@ -145,6 +145,22 @@
   font-weight: 500;
 }
 
+@media (max-width: 768px) {
+  .player-list-container {
+    padding: 1rem;
+    gap: 1rem;
+    min-height: auto;
+  }
+  .avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 0.9rem;
+  }
+  .player-item {
+    padding: 0.5rem 0.75rem;
+  }
+}
+
 .host-badge {
   color: var(--accent-primary);
   filter: drop-shadow(0 0 5px rgba(99, 102, 241, 0.3));

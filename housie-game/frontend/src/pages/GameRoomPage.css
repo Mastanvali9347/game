@@ -4,215 +4,174 @@
   display: flex;
   flex-direction: column;
   color: var(--text-primary);
-  overflow: hidden;
 }
 
 .game-header {
-  padding: 1rem 2rem;
+  padding: 1rem;
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--glass-border);
   display: flex;
   justify-content: space-between;
   align-items: center;
   z-index: 50;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
 }
 
 .header-left, .header-right {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 0.75rem;
 }
 
 .room-id-badge {
   font-weight: 800;
-  font-size: 0.85rem;
-  padding: 0.5rem 1rem;
+  font-size: 0.75rem;
+  padding: 0.4rem 0.8rem;
   background: rgba(99, 102, 241, 0.1);
   border: 1px solid rgba(99, 102, 241, 0.2);
   border-radius: 2rem;
   color: var(--accent-primary);
-  letter-spacing: 0.05em;
 }
 
 .header-btn {
-  width: 42px;
-  height: 42px;
+  width: 38px;
+  height: 38px;
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  border-radius: 12px;
+  border-radius: 10px;
   color: var(--text-secondary);
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.header-btn:hover {
-  background: var(--accent-primary);
-  color: white;
-  transform: translateY(-3px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(99, 102, 241, 0.3);
-}
-
 .game-main {
   flex: 1;
   display: grid;
-  grid-template-columns: 450px 1fr 320px;
-  gap: 1.5rem;
-  padding: 1.5rem;
+  grid-template-columns: 420px 1fr 320px;
+  gap: 1rem;
+  padding: 1rem;
+  height: calc(100vh - 72px);
   overflow: hidden;
-  height: calc(100vh - 80px);
 }
 
 .side-panel {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
   overflow-y: auto;
-  padding-right: 0.5rem;
 }
 
 .claim-controls {
   background: var(--bg-secondary);
   border: 1px solid var(--glass-border);
-  border-radius: 2rem;
-  padding: 1.5rem;
-  box-shadow: var(--shadow-premium);
+  border-radius: 1.5rem;
+  padding: 1.25rem;
 }
 
 .claim-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  gap: 0.75rem;
 }
 
 .claim-btn-small {
-  padding: 1rem 0.5rem;
+  padding: 0.8rem 0.5rem;
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  border-radius: 1rem;
+  border-radius: 0.75rem;
   color: var(--text-primary);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 800;
-  cursor: pointer;
-  transition: all 0.3s ease;
   text-transform: uppercase;
 }
 
-.claim-btn-small:hover:not(:disabled) {
-  background: var(--accent-primary);
-  color: white;
-  transform: translateY(-4px);
-  box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
-}
-
-.claim-btn-small.is-claimed {
-  background: rgba(0, 0, 0, 0.05);
-  color: var(--text-secondary);
-  text-decoration: line-through;
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-}
-
-.claim-btn {
+.fullhouse-btn {
   width: 100%;
-  padding: 1.25rem;
+  padding: 1rem;
+  margin-top: 1rem;
   background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
   border: none;
-  border-radius: 1.25rem;
+  border-radius: 1rem;
   color: white;
   font-weight: 900;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
-}
-
-.claim-btn:hover:not(:disabled) {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(99, 102, 241, 0.4);
 }
 
 .board-container {
   background: var(--bg-secondary);
   border: 1px solid var(--glass-border);
-  border-radius: 2.5rem;
-  padding: 2rem;
+  border-radius: 2rem;
+  padding: 1.5rem;
   overflow-y: auto;
-  box-shadow: var(--shadow-premium);
 }
 
 .social-panel {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1rem;
   height: 100%;
-  overflow: hidden;
-}
-
-.start-game-btn {
-  padding: 0.75rem 1.5rem;
-  background: var(--accent-neon);
-  border: none;
-  border-radius: 2rem;
-  color: white;
-  font-weight: 900;
-  font-size: 1rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  animation: pulse-glow 2s infinite;
-}
-
-.draw-btn {
-  padding: 0.75rem 1.5rem;
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-  border: none;
-  border-radius: 2rem;
-  color: white;
-  font-weight: 900;
-  cursor: pointer;
-  animation: pulse-glow 2s infinite;
 }
 
 .badge {
-  padding: 0.4rem 0.8rem;
-  border-radius: 2rem;
-  font-size: 0.7rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  padding: 0.3rem 0.6rem;
+  border-radius: 1rem;
+  font-size: 0.65rem;
+  font-weight: 800;
 }
 
 .badge.playing { background: var(--accent-neon); color: white; }
 .badge.waiting { background: var(--accent-primary); color: white; }
 
-.logout-btn-game:hover {
-  background: #ef4444;
-}
-
-@media (max-width: 1400px) {
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 1024px) {
   .game-main {
-    grid-template-columns: 380px 1fr 280px;
+    grid-template-columns: 1fr 300px;
   }
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 768px) {
   .game-main {
-    grid-template-columns: 1fr 320px;
-  }
-  .side-panel {
-    grid-column: 1 / -1;
-    flex-direction: row;
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: 1fr;
     height: auto;
-    overflow-x: auto;
+    overflow-y: auto;
+    padding: 0.75rem;
   }
-  .claim-controls {
-    flex: 1;
-    min-width: 300px;
+
+  .game-header {
+    padding: 0.75rem;
+  }
+
+  .side-panel, .board-container, .social-panel {
+    width: 100%;
+    overflow: visible;
+    height: auto;
+  }
+
+  /* Specific mobile orders for better UX */
+  .board-container {
+    order: 1;
+    padding: 1rem;
+    border-radius: 1.5rem;
+  }
+
+  .side-panel {
+    order: 2;
+  }
+
+  .social-panel {
+    order: 3;
+    min-height: 400px; /* Give chat some room */
+  }
+
+  .claim-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .room-id-badge {
+    display: none; /* Keep header clean on mobile */
   }
 }
