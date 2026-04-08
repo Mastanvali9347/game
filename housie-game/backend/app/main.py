@@ -27,11 +27,15 @@ async def get_rooms_redirect():
     from app.routes.rooms import rooms
     return {"rooms": list(rooms.values())}
 
-# CORS
+# CORS configuration for production (Vercel + Render)
+origins = [
+    "https://game-gamma-puce.vercel.app",
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=False,
+    allow_origins=origins,
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -39,7 +43,7 @@ app.add_middleware(
 # Socket.IO
 sio = socketio.AsyncServer(
     async_mode="asgi",
-    cors_allowed_origins="*",
+    cors_allowed_origins=origins,
     logger=False,
     engineio_logger=False
 )
