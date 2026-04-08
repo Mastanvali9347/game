@@ -23,7 +23,7 @@ const LobbyPage = () => {
   const fetchRooms = useCallback(async () => {
     setIsLoadingRooms(true);
     try {
-      const res = await api.get('/api/rooms/');
+      const res = await api.get('/api/rooms');
       setRooms(res.data.rooms || []);
     } catch {
       setRooms([]);

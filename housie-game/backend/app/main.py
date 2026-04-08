@@ -21,6 +21,12 @@ async def health_check():
 app.include_router(auth_router, prefix="/api/auth", tags=["Auth"])
 app.include_router(rooms_router, prefix="/api/rooms", tags=["Rooms"])
 
+# Robustness: ensure both /api/rooms and /api/rooms/ work
+@app.get("/api/rooms")
+async def get_rooms_redirect():
+    from app.routes.rooms import rooms
+    return {"rooms": list(rooms.values())}
+
 # CORS
 app.add_middleware(
     CORSMiddleware,
