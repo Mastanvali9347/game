@@ -4,25 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Base Theme & Performance Tokens */
-[data-theme='light'] {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f9fafb;
-  --accent-primary: #6366f1;
-  --accent-secondary: #4f46e5;
-  --accent-neon: #10b981;
-  --text-primary: #1e293b;
-  --text-secondary: #64748b;
-  --glass-bg: rgba(255, 255, 255, 0.9);
-  --glass-border: rgba(0, 0, 0, 0.1);
-  --shadow-premium: 0 4px 20px rgba(0, 0, 0, 0.08);
-  --pattern-opacity: 0.12;
-  color-scheme: light;
-}
-
+/* Unified Housie Theme */
 :root {
   --font-main: 'Outfit', 'Inter', system-ui, sans-serif;
-  --bg-primary: #000000;
+  --bg-primary: #000000;      /* Fixed Deep Black */
   --bg-secondary: #0a0a0a;
   --accent-primary: #818cf8;
   --accent-secondary: #6366f1;
@@ -39,7 +24,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 body {
@@ -59,25 +43,20 @@ body::before {
   position: fixed;
   top: 0; left: 0; right: 0; bottom: 0;
   background-image: url('/housie-pattern.png');
-  background-size: 300px; /* Adjust size for pattern */
+  background-size: 300px;
   background-repeat: repeat;
   opacity: var(--pattern-opacity);
   z-index: -1;
   pointer-events: none;
 }
 
-/* Tablet/Mobile Adjustments for Background */
-@media (max-width: 1024px) {
-  body::before {
-    background-size: 200px;
-  }
-}
-
-@media (max-width: 480px) {
-  body::before {
-    background-size: 150px;
+/* Responsive Pattern */
+@media (max-width: 1024px) { body::before { background-size: 200px; } }
+@media (max-width: 480px) { 
+  body::before { 
+    background-size: 150px; 
     opacity: calc(var(--pattern-opacity) * 1.5);
-  }
+  } 
 }
 
 .game-title {
@@ -120,3 +99,5 @@ body::before {
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
+
+.flex-center { display: flex; align-items: center; justify-content: center; }
