@@ -6,36 +6,35 @@
 
 /* Base Theme & Performance Tokens */
 [data-theme='light'] {
-  --bg-primary: #ffffff;      /* White Background */
+  --bg-primary: #ffffff;
   --bg-secondary: #f9fafb;
   --accent-primary: #6366f1;
   --accent-secondary: #4f46e5;
   --accent-neon: #10b981;
   --text-primary: #1e293b;
   --text-secondary: #64748b;
-  --glass-bg: rgba(255, 255, 255, 0.95);
+  --glass-bg: rgba(255, 255, 255, 0.9);
   --glass-border: rgba(0, 0, 0, 0.1);
   --shadow-premium: 0 4px 20px rgba(0, 0, 0, 0.08);
-  --pattern-opacity: 0.02;
+  --pattern-opacity: 0.12;
   color-scheme: light;
 }
 
 :root {
   --font-main: 'Outfit', 'Inter', system-ui, sans-serif;
-  --bg-primary: #000000;      /* Black Background */
+  --bg-primary: #000000;
   --bg-secondary: #0a0a0a;
   --accent-primary: #818cf8;
   --accent-secondary: #6366f1;
   --accent-neon: #34d399;
   --text-primary: #ffffff;
   --text-secondary: #94a3b8;
-  --glass-bg: rgba(20, 20, 20, 0.9);
+  --glass-bg: rgba(20, 20, 20, 0.85);
   --glass-border: rgba(255, 255, 255, 0.15);
   --shadow-premium: 0 10px 40px rgba(0, 0, 0, 0.5);
-  --pattern-opacity: 0.05;
+  --pattern-opacity: 0.15;
 }
 
-/* Global Reset & Base Styles */
 * {
   margin: 0;
   padding: 0;
@@ -51,11 +50,34 @@ body {
   overflow-x: hidden;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  position: relative;
 }
 
-/* Remove decorative gradients as requested to keep bg pure white/black */
-body::before, body::after {
-  display: none;
+/* Background Pattern Implementation */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: url('/housie-pattern.png');
+  background-size: 300px; /* Adjust size for pattern */
+  background-repeat: repeat;
+  opacity: var(--pattern-opacity);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Tablet/Mobile Adjustments for Background */
+@media (max-width: 1024px) {
+  body::before {
+    background-size: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  body::before {
+    background-size: 150px;
+    opacity: calc(var(--pattern-opacity) * 1.5);
+  }
 }
 
 .game-title {
@@ -76,13 +98,6 @@ body::before, body::after {
   flex-direction: column;
 }
 
-/* Premium Animations */
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes slideUp { 
-  from { transform: translateY(20px); opacity: 0; } 
-  to { transform: translateY(0); opacity: 1; } 
-}
-
 .glass {
   background: var(--glass-bg);
   backdrop-filter: blur(10px);
@@ -92,7 +107,12 @@ body::before, body::after {
 .animate-fade { animation: fadeIn 0.4s ease-out forwards; }
 .animate-slide-up { animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
-/* Scrollbar Modernization */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { 
+  from { transform: translateY(20px); opacity: 0; } 
+  to { transform: translateY(0); opacity: 1; } 
+}
+
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-track { background: var(--bg-primary); }
 ::-webkit-scrollbar-thumb {
@@ -100,5 +120,3 @@ body::before, body::after {
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent-primary); }
-
-.flex-center { display: flex; align-items: center; justify-content: center; }

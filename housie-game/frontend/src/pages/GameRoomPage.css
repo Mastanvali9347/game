@@ -1,6 +1,6 @@
 .game-room-root {
   min-height: 100vh;
-  background: var(--bg-primary);
+  background: transparent; /* Pattern shows through */
   display: flex;
   flex-direction: column;
   color: var(--text-primary);
@@ -50,7 +50,7 @@
 .game-main {
   flex: 1;
   display: grid;
-  grid-template-columns: 420px 1fr 320px;
+  grid-template-columns: 380px 1fr 400px; /* Increased right column to 400px */
   gap: 1rem;
   padding: 1rem;
   height: calc(100vh - 72px);
@@ -69,6 +69,7 @@
   border: 1px solid var(--glass-border);
   border-radius: 1.5rem;
   padding: 1.25rem;
+  backdrop-filter: blur(8px);
 }
 
 .claim-grid {
@@ -105,6 +106,7 @@
   border-radius: 2rem;
   padding: 1.5rem;
   overflow-y: auto;
+  backdrop-filter: blur(8px);
 }
 
 .social-panel {
@@ -112,6 +114,18 @@
   flex-direction: column;
   gap: 1rem;
   height: 100%;
+  overflow: hidden;
+}
+
+/* Adjust size distribution in social panel */
+.social-panel > div:first-child {
+  flex: 1.4; /* Larger Player List */
+  min-height: 0;
+}
+
+.social-panel > div:last-child {
+  flex: 1; /* Chat Box */
+  min-height: 0;
 }
 
 .badge {
@@ -124,54 +138,39 @@
 .badge.playing { background: var(--accent-neon); color: white; }
 .badge.waiting { background: var(--accent-primary); color: white; }
 
-/* MOBILE RESPONSIVENESS */
-@media (max-width: 1024px) {
+/* MOBILE / TABLET RESPONSIVENESS */
+@media (max-width: 1200px) {
   .game-main {
-    grid-template-columns: 1fr 300px;
+    grid-template-columns: 1fr 350px;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .game-main {
     display: flex;
     flex-direction: column;
-    grid-template-columns: 1fr;
     height: auto;
     overflow-y: auto;
-    padding: 0.75rem;
-  }
-
-  .game-header {
-    padding: 0.75rem;
+    padding: 1rem;
   }
 
   .side-panel, .board-container, .social-panel {
     width: 100%;
-    overflow: visible;
     height: auto;
-  }
-
-  /* Specific mobile orders for better UX */
-  .board-container {
-    order: 1;
-    padding: 1rem;
-    border-radius: 1.5rem;
-  }
-
-  .side-panel {
-    order: 2;
+    overflow: visible;
   }
 
   .social-panel {
-    order: 3;
-    min-height: 400px; /* Give chat some room */
+    min-height: 600px; /* Allow enough space for both when stacked */
   }
 
-  .claim-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .social-panel > div:first-child {
+    flex: none;
+    height: 300px;
   }
 
-  .room-id-badge {
-    display: none; /* Keep header clean on mobile */
+  .social-panel > div:last-child {
+    flex: none;
+    height: 400px;
   }
 }

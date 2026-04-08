@@ -2,19 +2,15 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-primary);
+  background-color: transparent; /* Allow body pattern to show */
   color: var(--text-primary);
   font-family: var(--font-main);
-  transition: background-color 0.3s ease;
 }
 
 .main-content {
   flex: 1;
-  padding-top: 5rem;
-  padding-bottom: 3rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  max-width: 80rem; /* max-w-7xl */
+  padding: 1rem;
+  max-width: 1400px;
   margin-left: auto;
   margin-right: auto;
   width: 100%;
@@ -31,24 +27,6 @@
 
 @media (min-width: 768px) {
   .main-content {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding: 2rem;
   }
-  .app-footer {
-    font-size: 0.875rem;
-  }
-}
-
-/* Premium gradient background that changes with theme */
-.app-layout::before {
-  content: '';
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle at top right, var(--accent-primary), transparent 40%);
-  opacity: 0.05;
-  pointer-events: none;
-  z-index: 0;
 }
