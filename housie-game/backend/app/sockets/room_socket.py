@@ -87,15 +87,17 @@ def register_handlers(sio: socketio.AsyncServer):
                 "coins": coins
             })
 
-            # Broadcast new player to others (individual event)
-            await sio.emit("player_joined", {
-                "id": user_id,
-                "name": username
-            }, room=room_id, skip_sid=sid)
+        # Ensure a host exists
+        if not room.get("host_id"):
+            room["host_id"] = user_id
 
-        # BROADCAST FULL LIST to everyone every time someone connects to ensure absolute sync
+        # BROADCAST FULL LIST to everyone
         await sio.emit("players_list", room["players"], room=room_id)
+        
+        # ALSO broadcast host update just in case
+        await sio.emit("new_host", {"host_id": room["host_id"]}, room=room_id)
 
+        # Send current state to joining user
         await sio.emit("room_state", get_room_state(room_id, user_id), to=sid)
 
     @sio.event

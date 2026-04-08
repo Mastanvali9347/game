@@ -112,9 +112,16 @@ const GameRoomPage = () => {
       setPlayers(prev => prev.some(p => p.id === data.id) ? prev : [...prev, data]);
     });
 
+    socket.off('players_list');
     socket.on('players_list', (data) => {
-      console.log("Full Players List Received:", data);
+      console.log("👥 Full Players List Received:", data);
       setPlayers(data);
+    });
+
+    socket.off('new_host');
+    socket.on('new_host', (data) => {
+      console.log("👑 NEW HOST ASSIGNED:", data.host_id);
+      setHostId(data.host_id);
     });
 
     socket.off('player_left');
@@ -158,6 +165,7 @@ const GameRoomPage = () => {
     });
 
     const emitJoin = () => {
+      if (!user?.id) return;
       console.log("📤 EMITTING join_room_socket:", { roomId, userId: user.id });
       socket.emit('join_room_socket', {
         room_id: roomId,
@@ -167,10 +175,9 @@ const GameRoomPage = () => {
       });
     };
 
+    socket.on('connect', emitJoin);
     if (socket.connected) {
       emitJoin();
-    } else {
-      socket.once('connect', emitJoin);
     }
 
     return () => {
@@ -183,6 +190,8 @@ const GameRoomPage = () => {
       socket.off('winner_declared');
       socket.off('chat_message');
       socket.off('game_ended');
+      socket.off('new_host');
+      socket.off('connect', emitJoin);
     };
   }, [roomId, user?.id, fetchTicket, updateCoins]);
 

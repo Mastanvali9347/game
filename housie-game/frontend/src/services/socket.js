@@ -13,10 +13,10 @@ export const connectSocket = () => {
       secure: SOCKET_URL.startsWith('https'),
       autoConnect: true,
       reconnection: true,
-      reconnectionAttempts: 10,
+      reconnectionAttempts: 20,
       reconnectionDelay: 1000,
-      timeout: 20000,
-      transports: ["polling", "websocket"]
+      timeout: 30000,
+      transports: ["websocket"]
     });
 
 
