@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Sun, Moon, Mic, MicOff, LogOut, User as UserIcon, Users } from 'lucide-react';
+import useThemeStore from '../context/useThemeStore';
 import useAuthStore from '../context/useAuthStore';
 import { getSocket } from '../services/socket';
 import './Header.css';
@@ -9,12 +10,14 @@ import './Header.css';
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { theme, toggleTheme, initTheme } = useThemeStore();
   const { user, signOut } = useAuthStore();
   const [isMicMuted, setIsMicMuted] = useState(true);
 
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
+    initTheme();
     // Check socket connection status periodically
     const checkSocket = () => {
       const s = getSocket();
@@ -88,6 +91,13 @@ const Header = () => {
           </>
         )}
 
+        <button 
+          onClick={toggleTheme}
+          className="theme-toggle-btn"
+          aria-label="Toggle Theme"
+        >
+          {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+        </button>
       </nav>
     </header>
   );

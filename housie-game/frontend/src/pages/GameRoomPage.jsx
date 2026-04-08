@@ -4,6 +4,7 @@ import {
   ArrowLeft, Mic, MicOff, LogOut, Copy, Check, Users, Trophy, Sun, Moon
 } from 'lucide-react';
 import useAuthStore from '../context/useAuthStore';
+import useThemeStore from '../context/useThemeStore';
 
 import { connectSocket, getSocket } from '../services/socket';
 import api from '../services/api';
@@ -20,10 +21,12 @@ const GameRoomPage = () => {
   const { roomId } = useParams();
   const navigate = useNavigate();
   const { user, updateCoins, signOut } = useAuthStore();
+  const { theme, toggleTheme, initTheme } = useThemeStore();
   const [copyFeedback, setCopyFeedback] = useState(false);
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
+    initTheme();
     const checkSocket = () => {
       const s = getSocket();
       setIsConnected(s?.connected || false);
@@ -31,7 +34,7 @@ const GameRoomPage = () => {
 
     const interval = setInterval(checkSocket, 2000);
     return () => clearInterval(interval);
-  }, []);
+  }, [initTheme]);
 
 
   const { micEnabled, toggleMic, remoteStreams } = useWebRTC(roomId, user?.id);
@@ -296,6 +299,9 @@ const GameRoomPage = () => {
             {micEnabled ? <Mic size={18} /> : <MicOff size={18} />}
           </button>
           
+          <button onClick={toggleTheme} className="header-btn" title="Toggle Theme">
+            {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+          </button>
 
 
           <button onClick={() => navigate('/lobby')} className="header-btn" title="Leave Room">

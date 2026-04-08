@@ -17,9 +17,13 @@
   top: 0; left: 0; right: 0; bottom: 0;
   background: radial-gradient(circle at 70% 30%, var(--accent-secondary) 0%, transparent 40%),
               radial-gradient(circle at 20% 80%, var(--accent-primary) 0%, transparent 40%);
-  opacity: 0.08;
+  opacity: 0.1;
   filter: blur(100px);
   z-index: 1;
+}
+
+[data-theme='light'] .login-background-overlay {
+  opacity: 0.05;
 }
 
 /* --- WRAPPER & LAYOUT --- */
@@ -56,7 +60,7 @@
   border: 1px solid var(--glass-border);
   padding: 1.5rem;
   border-radius: 2rem;
-  box-shadow: 0 0 30px rgba(99, 102, 241, 0.1);
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.15);
   animation: bounceLogo 4s ease-in-out infinite;
 }
 
@@ -86,7 +90,7 @@
   border-radius: 2rem;
   font-size: 0.75rem;
   font-weight: 700;
-  color: #059669;
+  color: var(--accent-neon);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -94,9 +98,9 @@
 .status-dot {
   width: 6px;
   height: 6px;
-  background: #10b981;
+  background: var(--accent-neon);
   border-radius: 50%;
-  box-shadow: 0 0 10px #10b981;
+  box-shadow: 0 0 10px var(--accent-neon);
   animation: blip 1.5s infinite;
 }
 
@@ -181,7 +185,7 @@
 
 .input-with-icon input:focus {
   outline: none;
-  background: white;
+  background: var(--bg-secondary);
   border-color: var(--accent-primary);
   box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
 }
@@ -248,9 +252,9 @@
 }
 
 .btn-guest-enhanced:hover:not(:disabled) {
-  background: white;
+  background: var(--glass-bg);
   border-color: var(--accent-primary);
-  color: var(--accent-primary);
+  color: var(--text-primary);
 }
 
 .play-icon-bg {
@@ -265,9 +269,9 @@
 }
 
 .auth-error-alert {
-  background: #fef2f2;
-  border: 1px solid #fee2e2;
-  color: #b91c1c;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #ef4444;
   padding: 1rem;
   border-radius: 1rem;
   font-size: 0.85rem;
@@ -286,8 +290,5 @@
 @media (max-width: 480px) {
   .auth-card-main {
     padding: 1.75rem 1.5rem;
-  }
-  .game-title {
-    font-size: 3.5rem;
   }
 }
