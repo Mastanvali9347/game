@@ -1,8 +1,8 @@
 import { io } from 'socket.io-client';
 
-const prodHostname = 'game-kuyp.onrender.com';
-const isDev = window.location.hostname !== prodHostname && !window.location.hostname.includes('vercel.app') && !window.location.hostname.includes('onrender.com');
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || (isDev ? `http://${window.location.hostname}:8000` : `https://${prodHostname}`);
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || 'http://localhost:8000';
+
+console.log("🔗 INITIALIZING SOCKET WITH URL:", SOCKET_URL);
 
 let socket = null;
 
