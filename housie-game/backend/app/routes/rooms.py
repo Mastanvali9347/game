@@ -4,6 +4,7 @@ from typing import Dict
 import uuid
 from datetime import datetime
 import random
+from app.services.game_service import generate_tambola_ticket, generate_bingo_board
 
 router = APIRouter()
 
@@ -13,6 +14,7 @@ rooms: Dict[str, dict] = {}
 class CreateRoomRequest(BaseModel):
     user_id: str
     username: str
+    game_type: str = "housie"
 
 
 class JoinRoomRequest(BaseModel):
@@ -21,30 +23,6 @@ class JoinRoomRequest(BaseModel):
     username: str
 
 
-def generate_ticket():
-    ticket = [[0 for _ in range(9)] for _ in range(3)]
-    col_ranges = [
-        (1, 9), (10, 19), (20, 29), (30, 39),
-        (40, 49), (50, 59), (60, 69),
-        (70, 79), (80, 90)
-    ]
-
-    for row in range(3):
-        cols = random.sample(range(9), 5)
-        for col in cols:
-            start, end = col_ranges[col]
-            ticket[row][col] = random.randint(start, end)
-
-    for col in range(9):
-        vals = [ticket[row][col] for row in range(3) if ticket[row][col] != 0]
-        vals.sort()
-        idx = 0
-        for row in range(3):
-            if ticket[row][col] != 0:
-                ticket[row][col] = vals[idx]
-                idx += 1
-
-    return ticket
 
 
 @router.get("/")
@@ -61,12 +39,16 @@ async def create_room(request: CreateRoomRequest):
         "host_id": request.user_id,
         "players": [{"id": request.user_id, "name": request.username}],
         "status": "waiting",
+        "game_type": request.game_type,
         "created_at": datetime.utcnow().isoformat(),
-        "tickets": {},
+        "tickets": {}, # For Housie
+        "boards": {}, # For Bingo
         "marked": {},
         "called_numbers": [],
         "current_number": None,
-        "winners": []
+        "winners": [],
+        "turn_queue": [],
+        "current_turn_index": 0
     }
 
     rooms[room_id] = room
@@ -119,12 +101,34 @@ async def get_ticket(room_id: str, user_id: str):
 
     if user_id not in room["tickets"]:
         # generate ticket if not exists
-        ticket = generate_ticket()
+        ticket = generate_tambola_ticket()
         room["tickets"][user_id] = ticket
         room["marked"][user_id] = []
 
     return {
         "ticket": room["tickets"][user_id],
+        "marked": room["marked"][user_id]
+    }
+
+
+@router.get("/{room_id}/board/{user_id}")
+async def get_board(room_id: str, user_id: str):
+    room = rooms.get(room_id)
+
+    if not room:
+        raise HTTPException(status_code=404, detail="Room not found")
+
+    if room["status"] != "playing":
+        raise HTTPException(status_code=400, detail="Game not started")
+
+    if user_id not in room["boards"]:
+        # generate board if not exists
+        board = generate_bingo_board()
+        room["boards"][user_id] = board
+        room["marked"][user_id] = []
+
+    return {
+        "board": room["boards"][user_id],
         "marked": room["marked"][user_id]
     }
 
@@ -145,8 +149,12 @@ async def start_game(room_id: str, user_id: str):
     room["status"] = "playing"
 
     for player in room["players"]:
-        ticket = generate_ticket()
-        room["tickets"][player["id"]] = ticket
+        if room["game_type"] == "bingo":
+            board = generate_bingo_board()
+            room["boards"][player["id"]] = board
+        else:
+            ticket = generate_tambola_ticket()
+            room["tickets"][player["id"]] = ticket
         room["marked"][player["id"]] = []
 
     return {"message": "Game started"}

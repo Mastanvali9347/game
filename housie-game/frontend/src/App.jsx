@@ -1,14 +1,17 @@
-import { useEffect, lazy, Suspense } from 'react';
+import { useEffect, useRef, lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 const LoginPage = lazy(() => import('./pages/LoginPage'));
+const GameSelectionPage = lazy(() => import('./pages/GameSelectionPage'));
 const LobbyPage = lazy(() => import('./pages/LobbyPage'));
 const GameRoomPage = lazy(() => import('./pages/GameRoomPage'));
+const BingoGamePage = lazy(() => import('./pages/BingoGamePage'));
 const RoomJoinPage = lazy(() => import('./pages/RoomJoinPage'));
 const ProfileEditPage = lazy(() => import('./pages/ProfileEditPage'));
 import useAuthStore from './context/useAuthStore';
 
 function App() {
+
   const { initAuth, user, loading } = useAuthStore();
 
   useEffect(() => {
@@ -35,13 +38,23 @@ function App() {
           {/* Login */}
           <Route
             path="/"
-            element={user ? <Navigate to="/lobby" replace /> : <LoginPage />}
+            element={user ? <Navigate to="/selection" replace /> : <LoginPage />}
+          />
+
+          {/* Selection */}
+          <Route
+            path="/selection"
+            element={user ? <GameSelectionPage /> : <Navigate to="/" replace />}
           />
 
           {/* Lobby */}
           <Route
-            path="/lobby"
+            path="/lobby/:gameType"
             element={user ? <LobbyPage /> : <Navigate to="/" replace />}
+          />
+          <Route
+            path="/lobby"
+            element={user ? <Navigate to="/selection" replace /> : <Navigate to="/" replace />}
           />
 
           {/* Join via link */}
@@ -50,10 +63,18 @@ function App() {
             element={<RoomJoinPage />}
           />
 
-          {/* Game */}
+          {/* Games */}
           <Route
             path="/game/:roomId"
             element={user ? <GameRoomPage /> : <Navigate to="/" replace />}
+          />
+          <Route
+            path="/bingo/:roomId"
+            element={user ? <BingoGamePage /> : <Navigate to="/" replace />}
+          />
+          <Route
+            path="/bingo"
+            element={user ? <Navigate to="/lobby/bingo" replace /> : <Navigate to="/" replace />}
           />
 
           {/* Profile Edit */}

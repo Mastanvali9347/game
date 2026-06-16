@@ -182,7 +182,7 @@
 /* Laptop View (1024px to 1440px) */
 @media (max-width: 1440px) {
   .game-main {
-    grid-template-columns: 320px 1fr 350px;
+    grid-template-columns: 400px 1fr 340px;
     gap: 0.75rem;
     padding: 0.75rem;
   }

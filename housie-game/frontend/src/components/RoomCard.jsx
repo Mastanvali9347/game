@@ -27,7 +27,7 @@ const RoomCard = ({ room, onJoin }) => {
       {/* Info */}
       <div className="room-info">
         <h3 className="room-title">
-          Housie Room
+          {room?.game_type === 'bingo' ? 'Bingo 25' : 'Housie Game'}
         </h3>
         <p className="room-host">
           Host: {room?.players?.[0]?.name || 'Unknown'}

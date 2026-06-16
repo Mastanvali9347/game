@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Plus, Search, RefreshCcw, Shapes } from 'lucide-react';
 import useAuthStore from '../context/useAuthStore';
 import ProfileCard from '../components/ProfileCard';
@@ -10,6 +10,7 @@ import './LobbyPage.css';
 
 const LobbyPage = () => {
   const navigate = useNavigate();
+  const { gameType } = useParams();
   const { user, refreshUser } = useAuthStore();
 
   const [rooms, setRooms] = useState([]);
@@ -24,7 +25,9 @@ const LobbyPage = () => {
     setIsLoadingRooms(true);
     try {
       const res = await api.get('/api/rooms');
-      setRooms(res.data.rooms || []);
+      const allRooms = res.data.rooms || [];
+      // Filter rooms by game type if possible
+      setRooms(allRooms.filter(r => r.game_type === gameType));
     } catch {
       setRooms([]);
     } finally {
@@ -49,7 +52,10 @@ const LobbyPage = () => {
     });
 
     socket.on('room_updated', (room) => {
-      setRooms(prev => prev.map(r => r.id === room.id ? room : r));
+      setRooms(prev => {
+        if (room.game_type !== gameType) return prev.filter(r => r.id !== room.id);
+        return prev.map(r => r.id === room.id ? room : r);
+      });
     });
 
     return () => {
@@ -65,7 +71,8 @@ const LobbyPage = () => {
     try {
       const res = await api.post('/api/rooms/create', {
         user_id: user.id,
-        username: username
+        username: username,
+        game_type: gameType || 'housie'
       });
 
       const room = res.data;
@@ -77,7 +84,11 @@ const LobbyPage = () => {
         username: username
       });
 
-      navigate(`/game/${room.id}`);
+      if (room.game_type === 'bingo') {
+        navigate(`/bingo/${room.id}`);
+      } else {
+        navigate(`/game/${room.id}`);
+      }
     } catch {
       alert('Create room failed');
     } finally {
@@ -106,7 +117,11 @@ const LobbyPage = () => {
         username: username
       });
 
-      navigate(`/game/${room.id}`);
+      if (room.game_type === 'bingo') {
+        navigate(`/bingo/${room.id}`);
+      } else {
+        navigate(`/game/${room.id}`);
+      }
     } catch (err) {
       alert(err.response?.data?.detail || 'Join failed');
     } finally {

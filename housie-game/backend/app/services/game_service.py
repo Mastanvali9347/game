@@ -78,3 +78,35 @@ def validate_claim(
         return set(ticket_numbers).issubset(marked_set)
 
     return False
+
+
+def generate_bingo_board() -> List[int]:
+    numbers = list(range(1, 26))
+    random.shuffle(numbers)
+    return numbers
+
+
+def check_bingo_win(board: List[int], called_numbers: List[int]) -> bool:
+    # A flat list of 25 numbers
+    # A player wins if they have 5 in a row, column or diagonal
+    
+    # Indices that are marked (because they were called)
+    marked_indices = [i for i, val in enumerate(board) if val in called_numbers]
+    
+    # Rows
+    for i in range(0, 25, 5):
+        if all(idx in marked_indices for idx in range(i, i + 5)):
+            return True
+            
+    # Columns
+    for i in range(5):
+        if all(idx in marked_indices for idx in range(i, 25, 5)):
+            return True
+            
+    # Diagonals
+    if all(idx in marked_indices for idx in [0, 6, 12, 18, 24]):
+        return True
+    if all(idx in marked_indices for idx in [4, 8, 12, 16, 20]):
+        return True
+        
+    return False
